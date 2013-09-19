@@ -1,0 +1,6 @@
+{
+  "name": "mv-deathstar",
+  "dependencies": {
+    "http-server": "~0.5.5"
+  }
+}
