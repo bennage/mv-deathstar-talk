@@ -11,7 +11,19 @@
 
 	<div id="root" class="container"></div>
 
+	<script id="template-item-detail" type="text/x-handlebar">
+		<dl>
+		<dt>name</dt>
+		<dd>{{name}}</dd>
+		<dt>lives in</dt>
+		<dd>{{home}}</dd>
+		<dt>is a</dt>
+		<dd>{{type}}</dd>
+		</dl>
+	</script>
+
 	<script src="/bower_components/jquery/jquery.min.js"></script>
+	<script src="/bower_components/handlebars/handlebars.js"></script>
 	<script src="/app.js"></script>
 </body>
 </html>

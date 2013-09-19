@@ -24,17 +24,9 @@ $(function() {
 			type: 'GET',
 			dataType: 'json',
 			success: function(data) {
-
-				var dl = $('<dl></dl>')
-					.appendTo(root);
-
-				Object.keys(data).forEach(function(property) {
-					$('<dt>' + property + '</dt>')
-						.appendTo(dl);
-
-					$('<dd>' + data[property] + '</dd>')
-						.appendTo(dl);
-				});
+				var template = Handlebars.compile($('#template-item-detail').text());
+				var html = template(data);
+				root.html(html);
 			},
 			error: function() {
 				alert('I broke :-(')
