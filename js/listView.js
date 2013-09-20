@@ -1,6 +1,6 @@
-(function(app) {
+define(function(app) {
 
-	app.renderList = function(root) {
+	return function(root) {
 
 		$.ajax({
 			url: '/api/list.json',
@@ -18,4 +18,4 @@
 		});
 	};
 
-})(this.myApp = this.myApp || {});
+});

@@ -1,21 +1,25 @@
-$(function() {
+define(['detailView', 'listView'], function(detailView, listView) {
 
-	var root = $('#root');
+	$(function() {
 
-	window.addEventListener('hashchange', handleRoute);
+		var root = $('#root');
 
-	handleRoute();
+		window.addEventListener('hashchange', handleRoute);
 
-	function handleRoute() {
-		var route = (window.location.hash) ? window.location.hash.replace('#/', '') : '';
+		handleRoute();
 
-		root.html('');
+		function handleRoute() {
+			var route = (window.location.hash) ? window.location.hash.replace('#/', '') : '';
 
-		if (route.match(/\d+/) === null) {
-			myApp.renderList(root);
-		} else {
-			myApp.renderDetail(root, route)
-		};
-	}
+			root.html('');
+
+			if (route.match(/\d+/) === null) {
+				listView(root);
+			} else {
+				detailView(root, route)
+			};
+		}
+
+	});
 
 });

@@ -1,6 +1,6 @@
-(function(app) {
+define(function() {
 
-	app.renderDetail = function(root, id) {
+	return function(root, id) {
 
 		$.ajax({
 			url: '/api/' + id + '.json',
@@ -17,4 +17,4 @@
 		});
 	};
 
-})(this.myApp = this.myApp || {});
+});
