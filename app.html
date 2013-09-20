@@ -13,9 +13,9 @@
 
 	<script id="template-item-list" type="text/x-handlebar">
 		<ul>
-		{{#list items}}
+		{{#each items}}
 		<li><a href="#/{{id}}">{{name}}</a></li>
-		{{/list}}
+		{{/each}}
 		</ul>
 	</script>
 
