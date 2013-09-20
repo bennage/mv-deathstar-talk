@@ -1,7 +1,17 @@
 $(function() {
 	var root = $('#root');
 
-	window.addEventListener('hashchange', handleRoute)
+	Handlebars.registerHelper('list', function(items, options) {
+		var out = '';
+
+		for (var i = 0, l = items.length; i < l; i++) {
+			out = out + options.fn(items[i]);
+		}
+
+		return out;
+	});
+
+	window.addEventListener('hashchange', handleRoute);
 
 	handleRoute();
 
@@ -42,17 +52,9 @@ $(function() {
 			dataType: 'json',
 			success: function(data) {
 
-				var ul = $('<ul></ul>')
-					.appendTo(root);
-
-				data.forEach(function(item) {
-					var li = $('<li></li>')
-						.appendTo(ul);
-					var a = $('<a></a>')
-						.text(item.name)
-						.attr('href', '#/' + item.id)
-						.appendTo(li);
-				});
+				var template = Handlebars.compile($('#template-item-list').text());
+				var html = template(data);
+				root.html(html);
 			},
 			error: function() {
 				alert('I broke :-(')

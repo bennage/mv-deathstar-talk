@@ -1,16 +1,18 @@
-[{
-	"id": "1",
-	"name": "Twilight"
-}, {
-	"id": "2",
-	"name": "Rainbow"
-}, {
-	"id": "3",
-	"name": "Apple"
-}, {
-	"id": "4",
-	"name": "Flutter"
-}, {
-	"id": "5",
-	"name": "Rarity"
-}]
+{
+	"items": [{
+		"id": "1",
+		"name": "Twilight"
+	}, {
+		"id": "2",
+		"name": "Rainbow"
+	}, {
+		"id": "3",
+		"name": "Apple"
+	}, {
+		"id": "4",
+		"name": "Flutter"
+	}, {
+		"id": "5",
+		"name": "Rarity"
+	}]
+}

@@ -11,6 +11,14 @@
 
 	<div id="root" class="container"></div>
 
+	<script id="template-item-list" type="text/x-handlebar">
+		<ul>
+		{{#list items}}
+		<li><a href="#/{{id}}">{{name}}</a></li>
+		{{/list}}
+		</ul>
+	</script>
+
 	<script id="template-item-detail" type="text/x-handlebar">
 		<dl>
 		<dt>name</dt>
