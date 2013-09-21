@@ -39,6 +39,39 @@
 		</div>
 	</script>
 
+	<script id="template-item-edit" type="text/x-handlebar">
+		<form class="form-horizontal" role="form">
+
+		  <div class="form-group">
+		    <label for="name" class="col-lg-2 control-label">Name</label>
+		    <div class="col-lg-10">
+		      <input type="text" class="form-control" id="name" placeholder="name" value="{{name}}" />
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		    <label for="type" class="col-lg-2 control-label">Type</label>
+		    <div class="col-lg-10">
+		      <input type="text" class="form-control" id="type" placeholder="pony type" value="{{type}}" />
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		    <label for="color" class="col-lg-2 control-label">Color</label>
+		    <div class="col-lg-2">
+		      <input type="color"  id="color" placeholder="Name" value="{{color}}" />
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		    <div class="pull-right">
+		      <button type="submit" class="btn btn-primary">Save</button>
+		      <button type="submit" class="btn btn-default">Cancel</button>
+		    </div>
+		  </div>
+		</form>
+	</script>
+
 	<script src="/bower_components/jquery/jquery.min.js"></script>
 	<script src="/bower_components/handlebars/handlebars.js"></script>
 	<script src="/bower_components/requirejs/require.js" data-main="/js/app"></script>

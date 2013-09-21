@@ -1,8 +1,4 @@
-define(['detailView', 'listView'], function(detailView, listView) {
-
-	function editDetail() {
-		alert('!!!');
-	}
+define(['detailView', 'listView', 'editView'], function(detailView, listView, editView) {
 
 	$(function() {
 
@@ -11,7 +7,7 @@ define(['detailView', 'listView'], function(detailView, listView) {
 		window.addEventListener('hashchange', handleRoute);
 
 		var routes = [
-			[/edit\/(\d+)/, editDetail],
+			[/edit\/(\d+)/, editView],
 			[/(\d+)/, detailView],
 			[/.*/, listView]
 		];
@@ -31,7 +27,6 @@ define(['detailView', 'listView'], function(detailView, listView) {
 					return;
 				}
 			}
-
 		}
 
 		handleRoute();
