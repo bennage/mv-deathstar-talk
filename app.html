@@ -20,14 +20,10 @@
 	</script>
 
 	<script id="template-item-detail" type="text/x-handlebar">
-		<dl>
-		<dt>name</dt>
-		<dd>{{name}}</dd>
-		<dt>is a</dt>
-		<dd>{{type}}</dd>
-		<dt>is the color</dt>
-		<dd>{{color}}</dd>
-		</dl>
+		<div class="panel">
+			<h2>{{name}}</h2>
+			<p class="lead panel-body" style="background-color: {{color}};">{{type}}</p>
+		</div>
 	</script>
 
 	<script src="/bower_components/jquery/jquery.min.js"></script>
