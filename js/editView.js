@@ -21,6 +21,9 @@ define(function() {
 
 		model.id = id;
 
+		$('.has-error').removeClass('has-error');
+		$('.validation-error').remove();
+
 		$.ajax({
 			url: '/api/post',
 			type: 'GET', //TODO: make this into a POST after the server bits are done
@@ -33,7 +36,7 @@ define(function() {
 					Object.keys(data).forEach(function(property) {
 						var field = $('input[name=' + property + ']');
 						field.parent().parent().addClass('has-error');
-						field.after('<span class="">' + data[property] + '</span>');
+						field.after('<span class="validation-error">' + data[property] + '</span>');
 					});
 
 				} else {
