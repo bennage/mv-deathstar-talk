@@ -1,5 +1,12 @@
 define(function(app) {
 
+	var template;
+
+	function applyTemplate(data) {
+		if (!template) template = Handlebars.compile($('#template-item-list').text());
+		return template(data);
+	}
+
 	return function(root) {
 
 		$.ajax({
@@ -7,13 +14,11 @@ define(function(app) {
 			type: 'GET',
 			dataType: 'json',
 			success: function(data) {
-
-				var template = Handlebars.compile($('#template-item-list').text());
-				var html = template(data);
+				var html = applyTemplate(data);
 				root.html(html);
 			},
 			error: function() {
-				alert('I broke :-(')
+				alert('I broke :-(');
 			}
 		});
 	};
