@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "bootstrap": "~3.0.0",
-    "requirejs": "~2.1.8"
+    "requirejs": "~2.1.8",
+    "handlebars": "~1.0.0"
   }
 }
