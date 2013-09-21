@@ -18,7 +18,7 @@ define(function() {
 				root.html(html);
 			},
 			error: function() {
-				alert('I broke :-(')
+				alert('I broke :-(');
 			}
 		});
 	};
