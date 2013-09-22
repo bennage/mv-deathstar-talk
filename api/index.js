@@ -13,3 +13,12 @@ exports.list = function (req, res) {
     })
   });
 };
+
+exports.get = function (req, res) {
+  var id = +(req.params.id);
+  var pony = store.getById(id);
+  if (pony !== null) {
+    res.send(pony);
+  }
+  res.send(404, 'No such animated equine');
+}

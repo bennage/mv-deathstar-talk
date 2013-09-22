@@ -21,3 +21,11 @@ var ponies = [
 exports.list = function () {
   return ponies;
 };
+
+exports.getById = function (id) {
+  var found = ponies.filter(function (p) { return p.id === id; });
+  if (found.length > 0) {
+    return found[0];
+  }
+  return null;
+};
