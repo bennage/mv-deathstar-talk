@@ -6,7 +6,7 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
-
+var api = require('./api');
 var app = express();
 
 // all environments
@@ -28,6 +28,8 @@ if ('development' == app.get('env')) {
 app.get('/bower.json', function (req, res) {
   res.send(404);
 });
+
+app.get('/api/list.json', api.list);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
