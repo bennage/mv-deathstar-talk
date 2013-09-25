@@ -1,5 +1,15 @@
 {
   "name": "mv-deathstar",
+  "version": "0.0.0",
+  "author": "Christopher Bennage <christopher@bennage.com>",
+  "description": "a sample repo for building your own MV* JavaScript framework",
+  "contributors": [ 
+    {
+      "name": "Chris Tavares",
+      "email": "ctavares@microsoft.com"
+    } 
+  ],
+  "private": true,
   "dependencies": {
     "express": "~3.4.0"
   },
