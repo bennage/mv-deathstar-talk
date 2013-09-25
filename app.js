@@ -26,8 +26,8 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/bower.json', function (req, res) {
-  res.send(404);
+app.get('/', function (req, res) {
+  res.redirect('/app.html');
 });
 
 app.get('/api/list.json', api.list);
