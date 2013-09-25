@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "homepage": "https://github.com/bennage/mv-deathstar-talk",
   "authors": [
-    "Christopher Bennage <christopher@bennage.com>"
+    "Christopher Bennage <christopher@bennage.com>",
+    "Chris Tavares <ctavares@microsoft.com>"
   ],
   "main": "app.js",
   "license": "MIT",
@@ -18,6 +19,7 @@
   "dependencies": {
     "bootstrap": "~3.0.0",
     "requirejs": "~2.1.8",
-    "handlebars": "~1.0.0"
+    "handlebars": "~1.0.0",
+    "jquery": "~2.0.3"
   }
 }
