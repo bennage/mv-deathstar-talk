@@ -26,26 +26,26 @@ define(function() {
 
 		$.ajax({
 			url: '/api/post',
-			type: 'GET', //TODO: make this into a POST after the server bits are done
+			type: 'POST',
 			dataType: 'json',
 			data: JSON.stringify(model),
 			success: function(data, status, xhr) {
-
-				if (hasError(xhr.status)) {
-
-					Object.keys(data).forEach(function(property) {
+				// we're persited the data, go back to the read only view
+				window.location.hash = '#/' + id;
+			},
+			error: function(xhr, status, statusMessage) {
+				// a validation failure
+				if (xhr.status == 400) {
+					var response = xhr.responseJSON;
+					Object.keys(response).forEach(function(property) {
 						var field = $('input[name=' + property + ']');
 						field.parent().parent().addClass('has-error');
-						field.after('<span class="validation-error">' + data[property] + '</span>');
+						field.after('<span class="validation-error">' + response[property] + '</span>');
 					});
-
 				} else {
-					// we're persited the data, go back to the read only view
-					window.location.hash = '#/' + id;
+					// who knows what happened?
+					debugger;
 				}
-			},
-			error: function() {
-
 			}
 		});
 	}

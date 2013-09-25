@@ -21,4 +21,8 @@ exports.get = function (req, res) {
     res.send(pony);
   }
   res.send(404, 'No such animated equine');
-}
+};
+
+exports.post = function(req, res){
+  res.send(400, JSON.stringify({ name: 'Everypony must have a name.'}));
+};
