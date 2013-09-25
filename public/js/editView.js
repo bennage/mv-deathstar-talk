@@ -28,7 +28,7 @@ define(function() {
 			url: '/api/post',
 			type: 'POST',
 			dataType: 'json',
-			data: JSON.stringify(model),
+			data: model,
 			success: function(data, status, xhr) {
 				// we're persited the data, go back to the read only view
 				window.location.hash = '#/' + id;
