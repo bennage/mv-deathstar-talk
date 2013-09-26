@@ -1,4 +1,4 @@
-(function(app) {
+define(function(app) {
 
 	var template;
 
@@ -6,8 +6,8 @@
 		if (!template) template = Handlebars.compile($('#template-item-list').text());
 		return template(data);
 	}
-	
-	app.renderList = function(root) {
+
+	return function(root) {
 
 		$.ajax({
 			url: '/api/list',
@@ -23,4 +23,4 @@
 		});
 	};
 
-})(this.myApp = this.myApp || {});
+});

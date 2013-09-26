@@ -1,20 +1,22 @@
-$(function() {
-	var root = $('#root');
+define(['detailView', 'listView'], function(detailView, listView) {
 
-	window.addEventListener('hashchange', handleRoute);
+	$(function() {
+		var root = $('#root');
 
-	handleRoute();
+		window.addEventListener('hashchange', handleRoute);
 
-	function handleRoute() {
-		var route = (window.location.hash) ? window.location.hash.replace('#/', '') : '';
+		handleRoute();
 
-		root.html('<div>loading</div>');
+		function handleRoute() {
+			var route = (window.location.hash) ? window.location.hash.replace('#/', '') : '';
 
-		if (route.match(/\d+/) === null) {
-			myApp.renderList(root);
-		} else {
-			myApp.renderDetail(root, route)
-		};
-	}
+			root.html('<div>loading</div>');
 
+			if (route.match(/\d+/) === null) {
+				listView(root);
+			} else {
+				detailView(root, route)
+			};
+		}
+	});
 });
