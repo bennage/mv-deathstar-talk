@@ -1,0 +1,29 @@
+*** /public/app.html
+
+	<script id="template-item-list" type="text/x-handlebar">
+		<ul>
+		{{#each items}}
+			<li><a href="#/{{id}}">{{name}}</a></li>
+		{{/each}}
+		</ul>
+	</script>
+
+
+*** /public/app.html (after jquery)
+
+		<script src="/handlebars/handlebars.js"></script>
+
+
+
+*** /public/js/app.js
+
+	var templateSource = $('#template-item-list').text();
+	var template = Handlebars.compile(templateSource);
+
+
+*** /public/js/app.js (inside $.ajax)
+
+		success: function(data) {
+		var html = template(data);
+		root.html(html);
+		},

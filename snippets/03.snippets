@@ -1,0 +1,62 @@
+*** /public/app.html (before app.js)
+
+	<script src="/js/detailView.js"></script>
+	<script src="/js/listView.js"></script>
+
+*** /public/js/detailView.js
+
+(function(app) {
+
+	var template;
+
+	function applyTemplate(data) {
+		if (!template) template = Handlebars.compile($('#template-item-detail').text());
+		return template(data);
+	}
+	
+	app.renderDetail = function(root, id) {
+
+		$.ajax({
+			url: '/api/' + id,
+			type: 'GET',
+			dataType: 'json',
+			success: function(data) {
+				var html = applyTemplate(data);
+				root.html(html);
+			},
+			error: function() {
+				alert('something went wrong');
+			}
+		});
+	};
+
+})(this.myApp = this.myApp || {});
+
+*** /public/js/listView.js
+
+(function(app) {
+
+	var template;
+
+	function applyTemplate(data) {
+		if (!template) template = Handlebars.compile($('#template-item-detail').text());
+		return template(data);
+	}
+	
+	app.renderList = function(root, id) {
+
+		$.ajax({
+			url: '/api/list',
+			type: 'GET',
+			dataType: 'json',
+			success: function(data) {
+				var html = applyTemplate(data);
+				root.html(html);
+			},
+			error: function() {
+				alert('something went wrong');
+			}
+		});
+	};
+
+})(this.myApp = this.myApp || {});

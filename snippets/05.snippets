@@ -1,0 +1,130 @@
+*** /public/app.html (in detail template)
+
+<a class="btn btn-info pull-right" href="#/edit/{{id}}">Edit</a>
+
+*** /public/js/app.js
+
+define(['detailView', 'listView', 'editView'], function(detailView, listView, editView) {
+
+	var routes = [
+		[/edit\/(\d+)/, editView],
+		[/(\d+)/, detailView],
+		[/.*/, listView]
+	];
+
+	handleRoute();
+
+	function handleRoute() {
+		var route = (window.location.hash) ? window.location.hash.replace('#/', '') : '';
+
+		root.html('');
+
+		for (var i = 0; i < routes.length; i++) {
+			var r = routes[i];
+			var regex = r[0];
+			var handler = r[1];
+			var m = route.match(regex);
+			if (m !== null) {
+				handler.apply(null, [root].concat(m.slice(1)));
+				return;
+			}
+		}
+	}
+
+*** /public/app.html
+
+	<script id="template-item-edit" type="text/x-handlebar">
+		<form class="form-horizontal" role="form">
+
+		  <div class="form-group">
+		    <label for="name" class="col-lg-2 control-label">Name</label>
+		    <div class="col-lg-10">
+		      <input type="text" class="form-control" id="name" name="name" placeholder="name" value="{{name}}" />
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		    <label for="type" class="col-lg-2 control-label">Type</label>
+		    <div class="col-lg-10">
+		      <input type="text" class="form-control" id="type" name="type" placeholder="pony type" value="{{type}}" />
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		    <label for="color" class="col-lg-2 control-label">Color</label>
+		    <div class="col-lg-2">
+		      <input type="color"  id="color" name="color" placeholder="Name" value="{{color}}" />
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		    <div class="pull-right">
+		      <button id="saveBtn" class="btn btn-primary">Save</button>
+		      <button id="cancelBtn" class="btn btn-default">Cancel</button>
+		    </div>
+		  </div>
+		</form>
+	</script>
+
+*** /public/js/editView.js
+
+define(function() {
+
+	var template;
+
+	function applyTemplate(data) {
+		if (!template) template = Handlebars.compile($('#template-item-edit').text());
+		return template(data);
+	}
+
+	function save(root, id) {
+		var model = {};
+
+		var formData = root.find('form').serializeArray();
+		formData.forEach(function(pair) {
+			model[pair.name] = pair.value;
+		});
+
+		model.id = id;
+
+		$.ajax({
+			url: '/api/post',
+			type: 'POST',
+			dataType: 'json',
+			data: JSON.stringify(model),
+			success: function(data, status, xhr) {
+				window.location.hash = '#/' + id;
+			},
+			error: function() {
+				alert('something went wrong');
+			}
+		});
+	}
+
+	return function(root, id) {
+
+		$.ajax({
+			url: '/api/' + id + '.json',
+			type: 'GET',
+			dataType: 'json',
+			success: function(data) {
+				var html = applyTemplate(data);
+				root.html(html);
+
+				$('#cancelBtn').on('click', function(evt) {
+					window.location.hash = '#/' + id;
+					evt.preventDefault();
+				});
+
+				$('#saveBtn').on('click', function(evt) {
+					save(root, id);
+					evt.preventDefault();
+				});
+			},
+			error: function() {
+				alert('something went wrong');
+			}
+		});
+	};
+
+});

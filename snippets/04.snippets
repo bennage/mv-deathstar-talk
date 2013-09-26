@@ -1,0 +1,15 @@
+*** /public/js/app.js
+
+define(['detailView', 'listView'], function(detailView, listView) {
+
+*** /public/js/app.js
+
+		if (route.match(/\d+/) === null) {
+			listView(root);
+		} else {
+			detailView(root, route)
+		};
+
+*** /public/app.html (remove app script tags)
+
+	<script src="/requirejs/require.js" data-main="/js/app"></script>
