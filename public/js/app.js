@@ -1,23 +1,16 @@
 $(function() {
 	var root = $('#root');
 
+	var templateSource = $('#template-item-list').text();
+	var template = Handlebars.compile(templateSource);
+
 	$.ajax({
 		url: '/api/list',
 		type: 'GET',
 		dataType: 'json',
-		success: function(response) {
-
-			var ul = $('<ul></ul>')
-				.appendTo(root);
-
-			response.items.forEach(function(item) {
-				var li = $('<li></li>')
-					.appendTo(ul);
-				var a = $('<a></a>')
-					.text(item.name)
-					.attr('href', '#/' + item.id)
-					.appendTo(li);
-			});
+		success: function(data) {
+			var html = template(data);
+			root.html(html);
 		},
 		error: function() {
 			alert('something went wrong');
