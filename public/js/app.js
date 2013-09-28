@@ -1,33 +1,27 @@
-define(['detailView', 'listView', 'editView'], function(detailView, listView, editView) {
+requirejs.config({
+	baseUrl: 'js',
+	paths: {
+		collections: '/collections',
+		models: '/models',
+		templates: '/templates',
+		views: '/views'
+	}
+});
 
-	$(function() {
-		var root = $('#root');
+require(['collections/PonyCollection', 'router'],
+	function(PonyCollection, PonyRouter) {
 
-		window.addEventListener('hashchange', handleRoute);
+	window.ponies = new PonyCollection();
+	ponies.fetch({ success: initializeApp, error: function () {
+		alert("Oh noes - couldn't download ponies!");
+	}});
 
-		var routes = [
-			[/edit\/(\d+)/, editView],
-			[/(\d+)/, detailView],
-			[/.*/, listView]
-		];
+	function initializeApp () {
+		$(function () {
+			var root = $('#root');
 
-		handleRoute();
-
-		function handleRoute() {
-			var route = (window.location.hash) ? window.location.hash.replace('#/', '') : '';
-
-			root.html('');
-
-			for (var i = 0; i < routes.length; i++) {
-				var r = routes[i];
-				var regex = r[0];
-				var handler = r[1];
-				var m = route.match(regex);
-				if (m !== null) {
-					handler.apply(null, [root].concat(m.slice(1)));
-					return;
-				}
-			}
-		}
-	});
+			router = new PonyRouter({root: root});
+			Backbone.history.start();
+		});
+	}
 });
