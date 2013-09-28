@@ -10,7 +10,7 @@ define(function(app) {
 	return function(root) {
 
 		$.ajax({
-			url: '/api/list.json',
+			url: '/api/list',
 			type: 'GET',
 			dataType: 'json',
 			success: function(data) {
@@ -18,7 +18,7 @@ define(function(app) {
 				root.html(html);
 			},
 			error: function() {
-				alert('I broke :-(');
+				alert('something went wrong');
 			}
 		});
 	};

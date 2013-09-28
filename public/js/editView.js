@@ -7,10 +7,6 @@ define(function() {
 		return template(data);
 	}
 
-	function hasError(data) {
-		return true;
-	}
-
 	function save(root, id) {
 		var model = {};
 
@@ -53,7 +49,7 @@ define(function() {
 	return function(root, id) {
 
 		$.ajax({
-			url: '/api/' + id + '.json',
+			url: '/api/' + id,
 			type: 'GET',
 			dataType: 'json',
 			success: function(data) {
@@ -71,7 +67,7 @@ define(function() {
 				});
 			},
 			error: function() {
-				alert('I broke :-(');
+				alert('something went wrong');
 			}
 		});
 	};

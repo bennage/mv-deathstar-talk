@@ -1,7 +1,6 @@
 define(['detailView', 'listView', 'editView'], function(detailView, listView, editView) {
 
 	$(function() {
-
 		var root = $('#root');
 
 		window.addEventListener('hashchange', handleRoute);
@@ -11,6 +10,8 @@ define(['detailView', 'listView', 'editView'], function(detailView, listView, ed
 			[/(\d+)/, detailView],
 			[/.*/, listView]
 		];
+
+		handleRoute();
 
 		function handleRoute() {
 			var route = (window.location.hash) ? window.location.hash.replace('#/', '') : '';
@@ -28,9 +29,5 @@ define(['detailView', 'listView', 'editView'], function(detailView, listView, ed
 				}
 			}
 		}
-
-		handleRoute();
-
 	});
-
 });

@@ -30,8 +30,8 @@ app.get('/', function (req, res) {
   res.redirect('/app.html');
 });
 
-app.get('/api/list.json', api.list);
-app.get('/api/:id.json', api.get);
+app.get('/api/list', api.list);
+app.get('/api/:id', api.get);
 app.post('/api/post', api.post);
 
 http.createServer(app).listen(app.get('port'), function(){
