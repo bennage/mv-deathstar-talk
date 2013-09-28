@@ -30,9 +30,9 @@ app.get('/', function (req, res) {
   res.redirect('/app.html');
 });
 
-app.get('/api/list', api.list);
-app.get('/api/:id', api.get);
-app.post('/api/post', api.post);
+app.get('/api/pony', api.list);
+app.get('/api/pony/:id', api.get);
+app.put('/api/pony/:id', api.put);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
