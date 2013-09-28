@@ -14,7 +14,7 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator'],  function (s
     system.debug(true);
     //>>excludeEnd("build");
 
-    app.title = 'My Cool App';
+    app.title = 'Ponypedia';
 
     app.configurePlugins({
         router:true
