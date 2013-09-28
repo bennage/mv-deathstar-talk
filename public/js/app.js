@@ -1,33 +1,64 @@
-define(['detailView', 'listView', 'editView'], function(detailView, listView, editView) {
+var ngPony = angular.module("ngPony", []);
 
-	$(function() {
-		var root = $('#root');
+ngPony.config(function($routeProvider) {
 
-		window.addEventListener('hashchange', handleRoute);
+	$routeProvider
+		.when("/", {
+			templateUrl: "templates/list_template.html",
+			controller: "ListCtrl"
+		})
+		.when("/edit/:id", {
+			templateUrl: "templates/edit_template.html",
+			controller: "EditCtrl"
+		})
+		.when("/:id", {
+			templateUrl: "templates/detail_template.html",
+			controller: "DetailCtrl"
+		})
+		.otherwise({
+			template: "<h1>Not Found</h1>"
+		});
+});
 
-		var routes = [
-			[/edit\/(\d+)/, editView],
-			[/(\d+)/, detailView],
-			[/.*/, listView]
-		];
+ngPony.controller("ListCtrl", function($scope, $http) {
 
-		handleRoute();
+	// a better choice might be to use ngResource
+	$http.get('/api/list')
+		.success(function(response) {
+			$scope.items = response.items;
+		});
+});
 
-		function handleRoute() {
-			var route = (window.location.hash) ? window.location.hash.replace('#/', '') : '';
+ngPony.controller("DetailCtrl", function($scope, $http, $routeParams) {
+	$http.get('/api/' + $routeParams.id)
+		.success(function(data) {
+			$scope.model = data;
+		});
+});
 
-			root.html('');
+ngPony.controller("EditCtrl", function($scope, $http, $routeParams) {
 
-			for (var i = 0; i < routes.length; i++) {
-				var r = routes[i];
-				var regex = r[0];
-				var handler = r[1];
-				var m = route.match(regex);
-				if (m !== null) {
-					handler.apply(null, [root].concat(m.slice(1)));
-					return;
-				}
-			}
-		}
-	});
+	$http
+		.get('/api/' + $routeParams.id)
+		.success(function(data) {
+			$scope.model = data;
+		});
+
+	$scope.cancel = function() {
+		// is there an ng way to do this?
+		window.history.back();
+	};
+
+	$scope.save = function() {
+		$http
+			.post('/api/post', $scope.model)
+			.then(
+				function() {
+					window.history.back();
+				},
+				function() {
+					// custom validation
+					debugger;
+				});
+	};
 });
