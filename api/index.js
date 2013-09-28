@@ -4,14 +4,7 @@ var store = require('./store');
 
 exports.list = function(req, res) {
   var ponies = store.list();
-  res.send({
-    items: ponies.map(function(p) {
-      return {
-        id: p.id,
-        name: p.name
-      };
-    })
-  });
+  res.send(ponies);
 };
 
 exports.get = function(req, res) {
@@ -23,15 +16,21 @@ exports.get = function(req, res) {
   res.send(404, 'No such animated equine');
 };
 
-exports.post = function(req, res) {
-  var model = req.body;
-  console.log(model.name);
-  if (!model.name) {
-    res.send(400, {
-      name: 'Everypony must have a name.'
-    });
-  } else {
-    res.send(200, {});
-  }
-
+exports.put = function(req, res) {
+  var updates = req.body;
+  console.log(updates);
+  Object.keys(updates).forEach(function(key) {
+    if (key.match(/\d+/)) {
+      var update = updates[key];
+      if (update.name === 'name') {
+        if (!update.value) {
+          res.send(400, {
+            name: 'Every pony must have a name.'
+          });
+          return;
+        }
+      }
+    }
+  });
+  res.send(200, {});
 };
