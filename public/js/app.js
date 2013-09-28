@@ -1,4 +1,11 @@
-define(['detailView', 'listView', 'editView'], function(detailView, listView, editView) {
+requirejs.config({
+	baseUrl: 'js',
+	paths: {
+		templates: '/templates'
+	}
+});
+
+require(['detailView', 'listView', 'editView'], function(detailView, listView, editView) {
 
 	$(function() {
 		var root = $('#root');

@@ -1,9 +1,9 @@
-define(function() {
+define(['text!templates/details.hbs'], function(templateText) {
 
 	var template;
 
 	function applyTemplate(data) {
-		if (!template) template = Handlebars.compile($('#template-item-detail').text());
+		if (!template) template = Handlebars.compile(templateText);
 		return template(data);
 	}
 
