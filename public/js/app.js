@@ -1,11 +1,20 @@
 requirejs.config({
 	baseUrl: 'js',
 	paths: {
-		templates: '/templates'
+		collections: '/collections',
+		models: '/models',
+		templates: '/templates',
+		views: '/views'
 	}
 });
 
-require(['detailView', 'listView', 'editView'], function(detailView, listView, editView) {
+require(['collections/PonyCollection', 'models/pony', 'detailView', 'views/list', 'editView'],
+	function(PonyCollection, Pony, detailView, ListView, editView) {
+
+	var model = new PonyCollection([
+		{id: 1, name: 'Pony 1'},
+		{id: 2, name: 'Pony 2'}
+	]);
 
 	$(function() {
 		var root = $('#root');
@@ -15,7 +24,13 @@ require(['detailView', 'listView', 'editView'], function(detailView, listView, e
 		var routes = [
 			[/edit\/(\d+)/, editView],
 			[/(\d+)/, detailView],
-			[/.*/, listView]
+			[/.*/, function (root) {
+				var view = new ListView({
+					el: root,
+					collection: model
+				});
+				view.render();
+			}]
 		];
 
 		handleRoute();
