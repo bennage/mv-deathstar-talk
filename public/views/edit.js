@@ -13,20 +13,28 @@ define(['text!templates/edit.hbs'], function (templateText) {
 
     onSave: function (evt) {
       var self = this;
+      var model = this.model;
+
       evt.preventDefault();
       this.resetValidationErrors();
       var formData = this.$el.find('form').serializeArray();
       var attributes = _.object(_.pluck(formData, 'name'), _.pluck(formData, 'value'));
 
-      this.model.save(formData, {
+      model.save(attributes, {
+        wait: true,
         success: function () {
           window.history.back();
         },
         error: function (model, xhr, options) {
-          var errors = xhr.responseJSON;
-          self.showErrors(errors);
+          if (xhr.status === 200) {
+            model.set(attributes);
+            window.history.back();
+          } else {
+            var errors = xhr.responseJSON;
+            self.showErrors(errors);
+          }
         }
-      })
+      });
     },
 
     onCancel: function (evt) {

@@ -19,18 +19,11 @@ exports.get = function(req, res) {
 exports.put = function(req, res) {
   var updates = req.body;
   console.log(updates);
-  Object.keys(updates).forEach(function(key) {
-    if (key.match(/\d+/)) {
-      var update = updates[key];
-      if (update.name === 'name') {
-        if (!update.value) {
-          res.send(400, {
-            name: 'Every pony must have a name.'
-          });
-          return;
-        }
-      }
-    }
-  });
-  res.send(200, {});
+  if (!updates.name) {
+    res.send(400, {
+      name: 'Every pony must have a name.'
+    });
+  } else {
+    res.send(200);
+  }
 };
