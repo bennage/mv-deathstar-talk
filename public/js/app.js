@@ -1,33 +1,27 @@
-define(['detailView', 'listView', 'editView'], function(detailView, listView, editView) {
+﻿requirejs.config({
+    paths: {
+        'text': '/requirejs-text/text',
+        'durandal':'/durandal/js',
+        'plugins' : '/durandal/js/plugins',
+        'transitions' : '/durandal/js/transitions',
+        'knockout': '/knockout.js/knockout',
+        'jquery': '/jquery/jquery'
+    }
+});
 
-	$(function() {
-		var root = $('#root');
+define(['durandal/system', 'durandal/app', 'durandal/viewLocator'],  function (system, app, viewLocator) {
+    //>>excludeStart("build", true);
+    system.debug(true);
+    //>>excludeEnd("build");
 
-		window.addEventListener('hashchange', handleRoute);
+    app.title = 'My Cool App';
 
-		var routes = [
-			[/edit\/(\d+)/, editView],
-			[/(\d+)/, detailView],
-			[/.*/, listView]
-		];
+    app.configurePlugins({
+        router:true
+    });
 
-		handleRoute();
-
-		function handleRoute() {
-			var route = (window.location.hash) ? window.location.hash.replace('#/', '') : '';
-
-			root.html('');
-
-			for (var i = 0; i < routes.length; i++) {
-				var r = routes[i];
-				var regex = r[0];
-				var handler = r[1];
-				var m = route.match(regex);
-				if (m !== null) {
-					handler.apply(null, [root].concat(m.slice(1)));
-					return;
-				}
-			}
-		}
-	});
+    app.start().then(function() {
+        //Show the app by setting the root view model for our application with a transition.
+        app.setRoot('shell', 'entrance');
+    });
 });

@@ -1,26 +1,22 @@
-define(function() {
+define(['knockout'], function(ko) {
 
-	var template;
+	return {
+		model: ko.observable(),
+		activate: function(id) {
 
-	function applyTemplate(data) {
-		if (!template) template = Handlebars.compile($('#template-item-detail').text());
-		return template(data);
-	}
+			var self = this;
 
-	return function(root, id) {
-
-		$.ajax({
-			url: '/api/' + id,
-			type: 'GET',
-			dataType: 'json',
-			success: function(data) {
-				var html = applyTemplate(data);
-				root.html(html);
-			},
-			error: function() {
-				alert('something went wrong');
-			}
-		});
+			return $.ajax({
+				url: '/api/' + id,
+				type: 'GET',
+				dataType: 'json',
+				success: function(data) {
+					self.model(data);
+				},
+				error: function() {
+					alert('something went wrong');
+				}
+			});
+		}
 	};
-
 });
